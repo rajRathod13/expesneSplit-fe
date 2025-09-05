@@ -21,7 +21,9 @@
     </div>
     <div class="meta-item">
       <span class="label">Created On</span>
-      <span class="value">{{ groupDetail.createdOn | date : "MMMM d y" }}</span>
+      <span class="value">{{
+        groupDetail.createdOn | date : "MM/dd/yyyy"
+      }}</span>
     </div>
   </div>
 
