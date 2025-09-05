@@ -1,0 +1,242 @@
+/* ========= Expenses Page Add-ons ========= */
+.home-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.home-title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-strong);
+}
+.spacer {
+  flex: 1;
+}
+
+.summary-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 1.25rem;
+}
+.summary .summary-title {
+  font-size: 0.85rem;
+  color: var(--text-weak);
+  margin-bottom: 0.25rem;
+}
+.summary .summary-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+.summary .summary-sub {
+  margin-top: 0.15rem;
+}
+
+.summary.you-owe {
+  border-left: 4px solid #ffc071;
+}
+.summary.they-owe {
+  border-left: 4px solid #8bc34a;
+}
+
+.filters-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr auto;
+  gap: 1rem;
+  align-items: end;
+}
+.date-inline {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.date-sep {
+  color: var(--text-weak);
+  font-size: 0.9rem;
+}
+.filters-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.row-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+.expense-title {
+  font-weight: 700;
+  color: var(--text);
+}
+.small {
+  font-size: 0.85rem;
+}
+.dot {
+  margin: 0 0.4rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  background: var(--muted);
+  color: var(--text);
+}
+.chip--food {
+  background: #fff3e0;
+  border-color: #ffe0b2;
+}
+.chip--travel {
+  background: #e3f2fd;
+  border-color: #bbdefb;
+}
+.chip--stay {
+  background: #ede7f6;
+  border-color: #d1c4e9;
+}
+.chip--misc {
+  background: #f1f8e9;
+  border-color: #dcedc8;
+}
+
+.stacked {
+  display: grid;
+  gap: 0.15rem;
+}
+
+/* ========= Modal ========= */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+}
+.modal.is-open {
+  display: block;
+}
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 20, 32, 0.45);
+  backdrop-filter: blur(2px);
+}
+.modal-card {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+  margin: 6vh auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-2);
+  padding: 1rem 1rem 1rem;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--text-strong);
+}
+.modal-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 0.5rem 0.25rem 0.75rem;
+}
+.modal-col {
+  display: grid;
+  gap: 0.75rem;
+}
+.detail-row {
+  display: grid;
+  gap: 0.25rem;
+}
+.note {
+  margin: 0;
+  background: #fbfcfe;
+  border: 1px solid var(--border);
+  padding: 0.6rem 0.7rem;
+  border-radius: 10px;
+}
+
+.amount-box {
+  border: 1px solid var(--border);
+  background: #fbfcfe;
+  border-radius: 12px;
+  padding: 0.8rem 0.9rem;
+  display: grid;
+  gap: 0.25rem;
+}
+.big-amount {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+
+.split-table {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+.split-row:last-child {
+  border-bottom: none;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.filter-column {
+  margin-bottom: 10px;
+}
+/* ========= Responsive ========= */
+@media (max-width: 1024px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .filters-row {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .filters-row {
+    grid-template-columns: 1fr;
+  }
+  .modal-card {
+    margin: 3vh 1rem;
+  }
+  .modal-body {
+    grid-template-columns: 1fr;
+  }
+}

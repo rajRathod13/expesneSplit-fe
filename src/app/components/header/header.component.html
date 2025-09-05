@@ -1,0 +1,79 @@
+<header class="site-header">
+  <div class="container">
+    <h3 class="brand">Expense Split App</h3>
+
+    <nav class="nav">
+      <a routerLink="/home" *ngIf="auth.isAuthenticated()">Home</a>
+      <a routerLink="/invitation" *ngIf="auth.isAuthenticated()">Invitations</a>
+      <a routerLink="/expenseDetail" *ngIf="auth.isAuthenticated()">Expenses</a>
+      <a routerLink="/login" *ngIf="!auth.isAuthenticated()">Login</a>
+      <a routerLink="/register" *ngIf="!auth.isAuthenticated()">Register</a>
+
+      <div
+        class="profile"
+        [class.open]="isMenuOpen"
+        *ngIf="auth.isAuthenticated() && (user$ | async) as user"
+      >
+        <button
+          class="btn btn--sm profile-trigger"
+          type="button"
+          (click)="toggleMenu()"
+        >
+          <img
+            class="avatar"
+            [src]="base + '/' + user?.profilePicture"
+            alt=""
+          />
+          <span class="username">{{ user?.fullName || "User" }}</span>
+          <svg
+            class="chev"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              d="M7 10l5 5 5-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          </svg>
+        </button>
+
+        <div class="menu" role="menu">
+          <div class="menu-header">
+            <img
+              class="avatar-lg"
+              [src]="user?.profilePicture || 'assets/avatar.svg'"
+              alt=""
+            />
+            <div class="info">
+              <div class="name">{{ user?.fullName }}</div>
+              <div class="muted">{{ user?.email || "you@example.com" }}</div>
+            </div>
+          </div>
+
+          <a
+            class="menu-item"
+            routerLink="/profile"
+            role="menuitem"
+            (click)="closeMenu()"
+            >Profile</a
+          >
+          <a
+            class="menu-item"
+            routerLink="/settings"
+            role="menuitem"
+            (click)="closeMenu()"
+            >Settings</a
+          >
+          <hr class="menu-sep" />
+          <button class="menu-item danger" (click)="doLogout(); closeMenu()">
+            Logout
+          </button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>

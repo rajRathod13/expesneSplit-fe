@@ -1,0 +1,303 @@
+<div class="inv-page">
+  <!-- ========== Section A: Tabs (Sent / Accepted / Rejected) ========== -->
+  <section class="inv-section inv-section--tabs">
+    <!-- radios must come BEFORE the .left-pane to keep :checked ~ selectors working -->
+    <input type="radio" id="tab-sent" name="invtab" checked />
+    <input type="radio" id="tab-accepted" name="invtab" />
+    <input type="radio" id="tab-cancelled" name="invtab" />
+    <input type="radio" id="tab-rejected" name="invtab" />
+
+    <div class="left-pane">
+      <!-- vertical tab strip -->
+      <nav class="tabs tabs-vert">
+        <label for="tab-sent">
+          <span>Sent<br />by Me</span>
+          <span class="badge">{{ sentInvitations.length }}</span>
+        </label>
+
+        <label for="tab-accepted">
+          <span>Accepted<br />by member</span>
+          <span class="badge">{{ acceptedInvitations.length }}</span>
+        </label>
+
+        <label for="tab-cancelled">
+          <span>Cancelled<br />by Me</span>
+          <span class="badge">{{ cancelledInvitations.length }}</span>
+        </label>
+
+        <label for="tab-rejected">
+          <span>Rejected<br />by member</span>
+          <span class="badge">{{ rejectedInvitations.length }}</span>
+        </label>
+      </nav>
+
+      <!-- tabbed content -->
+      <div class="tab-body card">
+        <!-- Sent by Me -->
+        <section class="panel panel-sent">
+          <div class="table-wrapper inv-sent">
+            <table class="group-table inv-wide">
+              <thead>
+                <tr>
+                  <th class="col-title">Group Title</th>
+                  <th class="col-person">Send To</th>
+                  <th class="col-date nowrap">Sent On</th>
+                  <th class="col-actions nowrap">Action</th>
+                </tr>
+              </thead>
+            </table>
+
+            <div class="tbody-scroll">
+              <table class="group-table inv-wide">
+                <tbody
+                  *ngIf="sentInvitations.length > 0; else emptySentInvitations"
+                >
+                  <tr *ngFor="let sentInvitation of sentInvitations">
+                    <td class="col-title">{{ sentInvitation.group.title }}</td>
+                    <td class="col-person">
+                      {{ sentInvitation.invitedUser.fullName }}
+                    </td>
+                    <td class="col-date nowrap">
+                      {{ sentInvitation.createdOn | date : "MM/dd/yyyy" }}
+                    </td>
+                    <td class="col-actions">
+                      <button
+                        class="btn btn--icon btn--danger"
+                        title="Cancel"
+                        (click)="
+                          cancelInvitaion({
+                            invitationId: sentInvitation.invitationId
+                          })
+                        "
+                      >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path
+                            d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"
+                          />
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <ng-template #emptySentInvitations>
+                <div class="empty-state">
+                  You haven’t sent any invitation to any other member.
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </section>
+
+        <!-- Accepted -->
+        <section class="panel panel-accepted">
+          <div class="table-wrapper inv-accepted">
+            <table class="group-table inv-wide">
+              <thead>
+                <tr>
+                  <th class="col-title">Group Title</th>
+                  <th class="col-person">Accepted By</th>
+                  <th class="col-date nowrap">Accepted On</th>
+                </tr>
+              </thead>
+            </table>
+
+            <div class="tbody-scroll">
+              <table class="group-table inv-wide">
+                <tbody
+                  *ngIf="
+                    acceptedInvitations.length > 0;
+                    else emptyAcceptedInvitations
+                  "
+                >
+                  <tr *ngFor="let acceptedInvitation of acceptedInvitations">
+                    <td class="col-title">
+                      {{ acceptedInvitation.group.title }}
+                    </td>
+                    <td class="col-person">
+                      {{ acceptedInvitation.invitedUser.fullName }}
+                    </td>
+                    <td class="col-date nowrap">
+                      {{ acceptedInvitation.updatedOn | date : "MM/dd/yyyy" }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <ng-template #emptyAcceptedInvitations>
+                <div class="empty-state">
+                  You haven’t any invitations accepted by member.
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cancelled -->
+        <section class="panel panel-cancelled">
+          <div class="table-wrapper inv-cancelled">
+            <table class="group-table inv-wide">
+              <thead>
+                <tr>
+                  <th class="col-title">Group Title</th>
+                  <th class="col-person">Invited To</th>
+                  <th class="col-date nowrap">Cancelled On</th>
+                </tr>
+              </thead>
+            </table>
+            <div class="tbody-scroll">
+              <table class="group-table inv-wide">
+                <tbody
+                  *ngIf="
+                    cancelledInvitations.length > 0;
+                    else emptyCancelledInvitations
+                  "
+                >
+                  <tr *ngFor="let cancelInvitation of cancelledInvitations">
+                    <td class="col-title">
+                      {{ cancelInvitation.group.title }}
+                    </td>
+                    <td class="col-person">
+                      {{ cancelInvitation.invitedUser.fullName }}
+                    </td>
+                    <td class="col-date nowrap">
+                      {{ cancelInvitation.updatedOn | date : "MM/dd/yyyy" }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ng-template #emptyCancelledInvitations>
+                <div class="empty-state">
+                  You doesn't cancelled any invitations yet.
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </section>
+
+        <!-- Rejected – static list as requested -->
+        <section class="panel panel-rejected">
+          <div class="table-wrapper inv-rejected">
+            <table class="group-table inv-wide">
+              <thead>
+                <tr>
+                  <th class="col-title">Group Title</th>
+                  <th class="col-person">Invited To</th>
+                  <th class="col-date nowrap">Rejected On</th>
+                </tr>
+              </thead>
+            </table>
+
+            <div class="tbody-scroll">
+              <table class="group-table inv-wide">
+                <tbody
+                  tbody
+                  *ngIf="
+                    rejectedInvitations.length > 0;
+                    else emptyRejectedInvitations
+                  "
+                >
+                  <tr *ngFor="let rejectedInvitation of rejectedInvitations">
+                    <td class="col-title">
+                      {{ rejectedInvitation.group.title }}
+                    </td>
+                    <td class="col-person">
+                      {{ rejectedInvitation.invitedUser.fullName }}
+                    </td>
+                    <td class="col-date nowrap">
+                      {{ rejectedInvitation.updatedOn | date : "MM/dd/yyyy" }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ng-template #emptyRejectedInvitations>
+                <div class="empty-state">
+                  You don't have any rejected invitations.
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Section B: New Invitations (own card) ========== -->
+  <section class="inv-section inv-section--new">
+    <div class="card">
+      <h3 class="section-title">New Invitations</h3>
+
+      <div class="table-wrapper inv-pending">
+        <table class="group-table inv-wide">
+          <thead>
+            <tr>
+              <th class="col-title">Group Title</th>
+              <th class="col-member">Total Members</th>
+              <th class="col-person">Invited By</th>
+              <th class="col-date nowrap">Sent On</th>
+              <th class="col-actions nowrap">Actions</th>
+            </tr>
+          </thead>
+        </table>
+
+        <div class="tbody-scroll">
+          <table class="group-table inv-wide">
+            <tbody
+              *ngIf="pendingInvitations.length > 0; else newEmptyInvitations"
+            >
+              <tr *ngFor="let pendingInvitation of pendingInvitations">
+                <td class="col-title">{{ pendingInvitation.group.title }}</td>
+                <td class="col-member">
+                  {{ pendingInvitation.group.userGroups.length }}
+                </td>
+                <td class="col-person">
+                  {{ pendingInvitation.inviterUser.fullName }}
+                </td>
+                <td class="col-date nowrap">
+                  {{ pendingInvitation.createdOn | date : "MM/dd/yyyy" }}
+                </td>
+                <td class="col-actions">
+                  <div class="action-buttons">
+                    <button
+                      class="btn btn--icon btn-view"
+                      title="Accept"
+                      (click)="
+                        acceptInvitation({
+                          invitationId: pendingInvitation.invitationId
+                        })
+                      "
+                    >
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" />
+                      </svg>
+                    </button>
+                    <button
+                      class="btn btn--icon btn--danger"
+                      title="Reject"
+                      (click)="
+                        rejectInvitation({
+                          invitationId: pendingInvitation.invitationId
+                        })
+                      "
+                    >
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <ng-template #newEmptyInvitations>
+            <div class="empty-state">You don't have new invitations.</div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

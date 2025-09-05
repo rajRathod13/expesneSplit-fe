@@ -1,0 +1,128 @@
+/* Keep your header styles */
+.home-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.home-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+.spacer {
+  flex: 1;
+}
+
+/* Tabs container */
+.home-tabs {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 0.25rem;
+  /* page-scoped table widths for both tabs */
+  --col1: 48%; /* Group Title */
+  --col2: 22%; /* Creator / Members */
+  --col3: 18%; /* Members / Created On */
+  --col4: 12%; /* Actions */
+}
+
+/* Hide radios but keep them as siblings of .tab-body */
+.home-tabs > input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Pills row */
+.home-tabs .tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0.75rem 0 0.5rem;
+}
+.home-tabs .tabs label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.6rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-weight: 800;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+  box-shadow: var(--shadow-1);
+  transition: background 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.home-tabs .tabs .badge {
+  display: inline-flex;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--primary-100);
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  border: 1px solid var(--primary);
+}
+
+/* Active pill */
+#tab-my:checked ~ .tabs label[for="tab-my"],
+#tab-joined:checked ~ .tabs label[for="tab-joined"] {
+  background: var(--primary-100);
+  border-color: var(--primary);
+  box-shadow: 0 6px 20px rgba(63, 81, 181, 0.2);
+  color: var(--text-strong);
+}
+
+/* Content card */
+.home-tabs .tab-body.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: var(--shadow-1);
+  margin-top: 0.25rem;
+}
+
+/* Panels visibility */
+.panel {
+  display: none;
+}
+#tab-my:checked ~ .tab-body .panel-my {
+  display: block;
+}
+#tab-joined:checked ~ .tab-body .panel-joined {
+  display: block;
+}
+
+/* Wider single-table sizing for this page */
+.home-wide {
+  /* uses global table styles; just sets widths here */
+  --col1: 48%;
+  --col2: 22%;
+  --col3: 18%;
+  --col4: 12%;
+}
+
+/* Optional: keep dates single-line */
+.nowrap {
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .home-tabs .tabs {
+    justify-content: flex-start;
+  }
+  .home-tabs .tab-body.card {
+    padding: 0.75rem;
+  }
+}

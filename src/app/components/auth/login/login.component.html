@@ -1,0 +1,29 @@
+<div class="auth-card">
+  <h2>Sign in</h2>
+  <p class="muted">Welcome back! Please sign in to continue.</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="field">
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input type="password" formControlName="password" />
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit" [disabled]="submitting">
+        {{ submitting ? "Signing in…" : "Sign in" }}
+      </button>
+      <a routerLink="/register" class="btn btn--link"
+        >Need an account? Register</a
+      >
+    </div>
+
+    <div class="form-note">
+      <span class="error" *ngIf="errorMsg">{{ errorMsg }}</span>
+    </div>
+  </form>
+</div>

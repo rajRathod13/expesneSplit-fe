@@ -1,0 +1,187 @@
+<!-- Top: Breadcrumbs / Back -->
+<nav class="breadcrumbs">
+  <a href="#">Home</a>
+  <span>›</span>
+  <span class="current">Group Details</span>
+</nav>
+
+<!-- Hero/Header -->
+<!-- <button class="btn btn--primary" type="button">+ Add Expense</button> -->
+<section class="group-hero card">
+  <app-group-detail-header
+    [groupDetail]="groupDetail"
+    [groupMembers]="groupMembers"
+  ></app-group-detail-header>
+</section>
+
+<!-- Content: Two Columns -->
+<section class="detail-grid">
+  <!-- Left: Recent Expenses -->
+  <div class="col card">
+    <div class="section-header">
+      <h2 class="section-title">All Expenses</h2>
+      <!-- <button class="btn btn--sm" type="button">View All</button> -->
+    </div>
+
+    <div class="table-wrapper recent-expenses">
+      <!-- wrapper just for scoping -->
+      <table class="group-table home-wide">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Paid By</th>
+            <th>Amount</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+      </table>
+
+      <div class="tbody-scroll">
+        <table class="group-table home-wide">
+          <tbody *ngIf="groupExpenses.length > 0; else noExpense">
+            <tr
+              *ngFor="let expense of groupExpenses"
+              class="row-link"
+              (click)="navigateTo(expense)"
+              role="button"
+              tabindex="0"
+              (keydown.enter)="navigateTo(expense)"
+              (keydown.space)="navigateTo(expense); $event.preventDefault()"
+            >
+              <td>{{ expense.description }}</td>
+              <td>{{ "John Doe" }}</td>
+              <td>₹ {{ expense.totalAmount }}</td>
+              <td>{{ expense.createdOn | date : "MM/dd/yyyy" }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ng-template #noExpense>
+          <div class="empty-state">Expenses not added yet.</div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Members + Group Info -->
+  <div class="col stack">
+    <div class="card">
+      <div class="section-header">
+        <h2 class="section-title">Members</h2>
+        <button
+          class="btn btn--sm"
+          type="button"
+          *ngIf="groupDetail.isCreator"
+          (click)="getUnInvitedUsers(groupDetail.groupId)"
+        >
+          Invite Members
+        </button>
+      </div>
+      <app-group-members
+        [groupMembers]="groupMembers"
+        [groupDetail]="groupDetail"
+        [isMember]="isMember"
+        (removeUser)="removeUserFromGroup($event)"
+      ></app-group-members>
+    </div>
+
+    <div class="card my-2">
+      <h2 class="section-title">Group Info</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="label">Split Type</div>
+          <div class="value">Equal</div>
+        </div>
+        <div class="info-item">
+          <div class="label">Currency</div>
+          <div class="value">INR</div>
+        </div>
+        <div class="info-item">
+          <div class="label">Total Expenses</div>
+          <div class="value">₹ 7,230</div>
+        </div>
+        <div class="info-item">
+          <div class="label">Your Balance</div>
+          <div class="value">₹ -540</div>
+        </div>
+
+        <div class="info-item span-2">
+          <div class="label">Notes</div>
+          <div class="value">No additional notes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Invite Members modal -->
+<!-- Backdrop -->
+<div
+  class="modal-backdrop"
+  *ngIf="openInvite"
+  (click)="openInvite = false"
+></div>
+
+<!-- Dialog -->
+<div
+  class="modal"
+  *ngIf="openInvite"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="invite-title"
+>
+  <div class="card modal-card">
+    <div class="modal-header">
+      <h2 class="modal-title" id="invite-title">Invite Members</h2>
+      <button
+        class="btn btn--link btn--sm"
+        type="button"
+        (click)="openInvite = false"
+      >
+        Close
+      </button>
+    </div>
+
+    <!-- No search, no select-all, no checkboxes -->
+    <div class="user-scroll">
+      <ul class="user-list">
+        <!-- Replace 'availableUsers' with your real uninvited list -->
+        <li
+          class="user-item"
+          *ngFor="let user of unInvitedUsers; trackBy: trackByUserId"
+        >
+          <div class="user-row" role="listitem">
+            <img
+              class="avatar"
+              [src]="base + '/' + user.profilePicture"
+              alt="Alice Johnson"
+            />
+            <div class="user-info">
+              <div class="name">{{ user.fullName }}</div>
+              <div class="muted">{{ user.email }}</div>
+            </div>
+            <div class="actions">
+              <button
+                class="btn btn--primary btn--sm"
+                type="button"
+                (click)="
+                  sendInvitation({
+                    groupId: groupDetail.groupId,
+                    invitedUserId: user.id
+                  })
+                "
+              >
+                Send Invitation
+              </button>
+            </div>
+          </div>
+        </li>
+        <!-- Empty state -->
+        <!-- <ng-template #noUsers>
+          <li class="empty">No users available to invite.</li>
+         </ng-template> -->
+        <!-- <li class="empty">No users available to invite.</li> -->
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="card profile-card">
+  <h2>My Profile</h2>
+  <p class="muted">View your personal details.</p>
+
+  <div class="profile-info">
+    <div class="avatar-block">
+      <img [src]="user.profilePicture" alt="Profile" />
+    </div>
+
+    <div class="details">
+      <div class="detail-item">
+        <span class="label">Full Name:</span>
+        <span class="value">{{ user.fullName }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Email:</span>
+        <span class="value">{{ user.email }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Phone Number:</span>
+        <span class="value">+91 {{ user.phoneNumber }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button
+      type="button"
+      class="btn btn--primary"
+      data-bs-toggle="modal"
+      data-bs-target="#updateProfileModal"
+    >
+      Update
+    </button>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="updateProfileModal"
+  tabindex="-1"
+  aria-labelledby="updateProfileModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content themed-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateProfileModalLabel">Update Profile</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" [(ngModel)]="profileData.fullName" />
+        </div>
+        <div class="field">
+          <label>Profile Picture</label>
+          <input type="file" (change)="onProfilePictureChange($event)" />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn--primary"
+          (click)="updateProfile(profileData)"
+        >
+          Update Details
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

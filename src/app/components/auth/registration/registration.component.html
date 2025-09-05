@@ -1,0 +1,47 @@
+<div class="auth-card">
+  <h2>Create your account</h2>
+  <p class="muted">Join us in a minute.</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="field">
+      <label>Full name</label>
+      <input type="text" formControlName="fullName" />
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+    </div>
+
+    <div class="field">
+      <label>Phone number</label>
+      <input type="text" formControlName="phoneNumber" />
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input type="password" formControlName="password" />
+    </div>
+
+    <div class="field">
+      <label>Profile picture (optional)</label>
+      <input type="file" (change)="onFileChange($event)" accept="image/*" />
+      <div class="preview" *ngIf="previewUrl">
+        <img [src]="previewUrl" alt="Preview" />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn--primary" type="submit" [disabled]="submitting">
+        {{ submitting ? "Creating…" : "Create account" }}
+      </button>
+      <a routerLink="/login" class="btn btn--link"
+        >Already have an account? Sign in</a
+      >
+    </div>
+
+    <div class="form-note">
+      <span class="error" *ngIf="errorMsg">{{ errorMsg }}</span>
+    </div>
+  </form>
+</div>

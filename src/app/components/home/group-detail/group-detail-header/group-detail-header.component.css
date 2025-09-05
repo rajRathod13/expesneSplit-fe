@@ -1,0 +1,356 @@
+:host {
+  display: contents;
+}
+
+.image-wrap {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow-1);
+}
+.group-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 180px;
+  object-fit: cover;
+}
+
+.hero-content {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.group-title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+}
+.meta-item {
+  display: grid;
+  gap: 0.2rem;
+}
+.meta-item .label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-weak);
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+.meta-item .value {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.group-desc {
+  margin: 0.25rem 0 0;
+  color: var(--text);
+}
+
+/* Add Expense Model*/
+/* === REQUIRED in the same component as the modal markup (or move to global styles.css) === */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 20, 32, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 999; /* above page */
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 1000; /* above backdrop */
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 560px;
+  padding: 1.1rem;
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 16px;
+  box-shadow: var(--shadow-1, 0 10px 30px rgba(0, 0, 0, 0.15));
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.6rem;
+}
+.modal-title {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--text-strong);
+}
+
+/* Scope everything to .exp-modal */
+.exp-modal {
+  padding-bottom: 0.75rem;
+}
+
+/* Top form fields */
+.exp-form .exp-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 0.8rem 1rem;
+  margin: 0.25rem 0 0.9rem;
+}
+@media (max-width: 640px) {
+  .exp-form .exp-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.exp-form .field {
+  display: grid;
+  gap: 0.35rem;
+}
+.exp-form .label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-weak);
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+.exp-form .input {
+  width: 100%;
+  height: 40px;
+  padding: 0 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+}
+.exp-form .input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-100);
+}
+.exp-form .input.right {
+  text-align: right;
+}
+
+/* Affixed inputs (₹ / %) */
+.input-affix {
+  position: relative;
+  display: grid;
+  align-items: center;
+}
+.input-affix .affix-l,
+.input-affix .affix-r {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  color: var(--text-weak);
+}
+.input-affix .affix-l {
+  left: 0;
+}
+.input-affix .affix-r {
+  right: 0;
+}
+.input-affix .input {
+  padding-left: 1.6rem;
+}
+.input-affix .input.right {
+  padding-right: 1.6rem;
+}
+
+/* Split pane layout (left tabs, right content) */
+.split-pane {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+/* Reuse your vertical tab look */
+.split-tabs {
+  margin: 0;
+}
+.split-tabs label {
+  display: grid;
+  align-items: center;
+  gap: 10px;
+  padding: 0.7rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-weight: 800;
+  color: var(--text);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+}
+
+/* Hide the radios themselves */
+#split-equal,
+#split-percent,
+#split-custom {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Active tab highlight */
+#split-equal:checked ~ .split-pane .split-tabs label[for="split-equal"],
+#split-percent:checked ~ .split-pane .split-tabs label[for="split-percent"],
+#split-custom:checked ~ .split-pane .split-tabs label[for="split-custom"] {
+  background: var(--primary-100);
+  border-color: var(--primary);
+  box-shadow: 0 6px 20px rgba(63, 81, 181, 0.18);
+  color: var(--text-strong);
+}
+
+/* Content card on the right */
+.split-body.card {
+  padding: 0.75rem;
+}
+
+/* Panels: only show the selected one */
+.panel {
+  display: none;
+}
+#split-equal:checked ~ .split-pane .split-body .panel-equal {
+  display: block;
+}
+#split-percent:checked ~ .split-pane .split-body .panel-percent {
+  display: block;
+}
+#split-custom:checked ~ .split-pane .split-body .panel-custom {
+  display: block;
+}
+
+/* Table tweaks inside panels (reuse your table look) */
+.exp-modal .data-table th,
+.exp-modal .data-table td {
+  padding: 0.6rem 0.55rem;
+}
+.exp-modal .tbody-scroll {
+  max-height: 40vh;
+}
+
+/* Column helpers (consistent with your pattern) */
+/* .exp-modal .col-title {
+  width: 60%;
+}
+.exp-modal .col-number {
+  width: 40%;
+  text-align: right;
+}
+.exp-modal .col-actions {
+  width: 40%;
+  text-align: center;
+  white-space: nowrap;
+} */
+/* Make sure widths are honored inside this component */
+.exp-modal .data-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+/* Keep default for % / Custom */
+.panel-percent .col-title,
+.panel-custom .col-title {
+  width: 60%;
+}
+.panel-percent .col-number,
+.panel-custom .col-number {
+  width: 40%;
+}
+
+/* Narrow the checkbox column only for Equal */
+.panel-equal .col-title {
+  width: 75%;
+} /* tweak 70–80% as you like */
+.panel-equal .col-actions {
+  width: 25%;
+  text-align: center;
+}
+/* Footer */
+.exp-modal .form-actions {
+  margin-top: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .split-pane {
+    grid-template-columns: 1fr;
+  }
+  .split-tabs {
+    display: flex;
+    gap: 0.75rem;
+  }
+}
+
+/* Style <select> the same as your .input fields */
+.exp-modal select.input {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  height: 40px;
+  padding: 0 2rem 0 0.65rem; /* extra right padding for the arrow */
+  color: var(--text);
+  outline: none;
+  width: 100%;
+  box-shadow: none;
+
+  /* single-line, URL-encoded SVG chevron */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%236b7380' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+  background-size: 16px;
+}
+
+.exp-modal select.input:hover {
+  border-color: var(--primary);
+}
+
+.exp-modal select.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-100);
+}
+
+.exp-modal select.input:disabled {
+  background-color: var(--muted);
+  color: var(--text-weak);
+  cursor: not-allowed;
+}
+
+/* Slightly nicer option spacing (limited cross-browser) */
+.exp-modal select.input option {
+  padding: 0.4rem 0.5rem;
+  color: var(--text);
+}
+
+/* Prevent dropdown being clipped by ancestors */
+.exp-modal .modal-card,
+.exp-modal .split-body {
+  overflow: visible;
+}

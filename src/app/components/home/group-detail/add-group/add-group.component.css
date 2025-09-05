@@ -1,0 +1,176 @@
+/* Host should not introduce layout shifts */
+:host {
+  display: contents;
+}
+
+/* ---------- Overlay & Dialog ---------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 20, 32, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 50;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 51;
+}
+.modal-card {
+  width: 100%;
+  max-width: 540px;
+  padding: 1.1rem;
+}
+
+/* ---------- Header ---------- */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.6rem;
+}
+.modal-title {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--text-strong);
+}
+
+/* ---------- Category Image Grid ---------- */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* visually hidden but accessible radios */
+.category-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* clickable card label */
+.category-card {
+  display: grid;
+  grid-template-rows: 88px auto;
+  align-items: center;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fbfcfe;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    transform 0.06s ease, background 0.15s ease;
+  user-select: none;
+}
+.category-card:hover {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: var(--shadow-1);
+  transform: translateY(-1px);
+}
+.category-card:active {
+  transform: translateY(0);
+}
+
+.category-img {
+  width: 100%;
+  height: 88px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+.category-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  color: var(--text);
+}
+
+/* checked & focus styles via the sibling label */
+.category-radio:checked + .category-card {
+  border-color: var(--primary);
+  box-shadow: var(--focus-ring);
+  background: #fff;
+}
+.category-radio:focus-visible + .category-card {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ---------- File Input ---------- */
+.file--nice {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.35rem 0.5rem;
+  background: #fff;
+  cursor: pointer;
+}
+.file--nice:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: var(--focus-ring);
+}
+.file--nice::file-selector-button {
+  margin-right: 0.75rem;
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  height: 34px;
+  padding: 0 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    transform 0.05s ease;
+}
+.file--nice:hover::file-selector-button {
+  background: var(--primary-600);
+  border-color: var(--primary-600);
+}
+
+/* ---------- Image Preview ---------- */
+.preview img {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-1);
+}
+
+/* ---------- Actions ---------- */
+.form-actions {
+  justify-content: flex-end;
+}
+
+/* keep disabled primary on-brand */
+.btn--primary[disabled] {
+  background: var(--primary-100);
+  color: var(--primary-600);
+  border-color: var(--primary);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+/* compact link buttons */
+.btn.btn--link.btn--sm {
+  padding: 0;
+  height: auto;
+}
+
+/* ensure pointer for all .btn */
+.btn {
+  cursor: pointer;
+}

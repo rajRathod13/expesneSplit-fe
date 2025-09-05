@@ -1,0 +1,30 @@
+<!-- Scroll wrapper (shows ~5 rows, rest scroll) -->
+<div class="member-scroll">
+  <ul class="member-list">
+    <li
+      class="member"
+      *ngFor="let member of groupMembers; trackBy: trackByUserId"
+    >
+      <img class="avatar" [src]="base + '/' + member.profilePicture" alt="" />
+
+      <div class="info">
+        <div class="name">{{ member.fullName }}</div>
+        <div class="muted">{{ member.email }}</div>
+      </div>
+
+      <div class="member-actions">
+        <span class="chip">{{
+          groupDetail.user.id === member.id ? "Owner" : "Member"
+        }}</span>
+        <button
+          class="btn btn--xs btn--danger"
+          type="button"
+          *ngIf="!(groupDetail.user.id === member.id) && !isMember"
+          (click)="onRemove(member)"
+        >
+          Remove
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

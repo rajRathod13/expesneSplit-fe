@@ -1,0 +1,387 @@
+<main class="main">
+  <!-- Group / Page header -->
+  <div class="home-header">
+    <h1 class="home-title">Trip to Goa — Expenses</h1>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- Top summary -->
+  <section class="summary-grid">
+    <div class="card summary">
+      <div class="summary-title">Group</div>
+      <div class="summary-value">Trip to Goa</div>
+      <div class="summary-sub muted">4 members</div>
+    </div>
+    <div class="card summary">
+      <div class="summary-title">Total Spent</div>
+      <div class="summary-value">₹ 48,320</div>
+      <div class="summary-sub muted">12 expenses</div>
+    </div>
+    <div class="card summary you-owe">
+      <div class="summary-title">You Owe</div>
+      <div class="summary-value">₹ 1,750</div>
+      <div class="summary-sub muted">to Priya</div>
+    </div>
+    <div class="card summary they-owe">
+      <div class="summary-title">They Owe You</div>
+      <div class="summary-value">₹ 3,200</div>
+      <div class="summary-sub muted">from Karan & Aman</div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="column filter-column">
+    <h2 class="column-title">Filters</h2>
+    <div class="filters-row">
+      <div class="field">
+        <label for="q">Search</label>
+        <input
+          id="q"
+          type="text"
+          placeholder="Search description, payer, notes..."
+        />
+      </div>
+      <div class="field">
+        <label for="cat">Category</label>
+        <select id="cat">
+          <option>All</option>
+          <option>Food & Dining</option>
+          <option>Travel</option>
+          <option>Stay</option>
+          <option>Activities</option>
+          <option>Misc</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="payer">Paid By</label>
+        <select id="payer">
+          <option>Anyone</option>
+          <option>You</option>
+          <option>Priya</option>
+          <option>Karan</option>
+          <option>Aman</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Date</label>
+        <div class="date-inline">
+          <input type="date" />
+          <span class="date-sep">to</span>
+          <input type="date" />
+        </div>
+      </div>
+      <div class="filters-actions">
+        <button class="btn">Reset</button>
+        <button class="btn btn--primary">Apply</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expense list -->
+  <section class="column">
+    <h2 class="column-title">Expenses</h2>
+
+    <div class="table-wrapper">
+      <table class="group-table">
+        <thead>
+          <tr>
+            <th class="col-name">Description</th>
+            <th class="col-creator">Paid By</th>
+            <th class="col-members">Category</th>
+            <th class="col-members">Amount</th>
+            <th class="col-actions">Actions</th>
+          </tr>
+        </thead>
+      </table>
+
+      <!-- scrollable body -->
+      <div class="tbody-scroll">
+        <table class="group-table">
+          <tbody>
+            <!-- Row 1 -->
+            <tr>
+              <td class="col-name">
+                <div class="row-head">
+                  <span class="expense-title">Dinner at Fisherman’s Wharf</span>
+                  <span class="chip chip--food">Food &amp; Dining</span>
+                </div>
+                <div class="muted small">
+                  Split equally • You owe ₹ 250
+                  <span class="dot">•</span>
+                  02 Sep 2025
+                </div>
+              </td>
+              <td class="col-creator">
+                Priya <span class="muted small">(UPI)</span>
+              </td>
+              <td class="col-members">
+                <div class="stacked">
+                  <span class="muted small">Category</span>
+                  <strong>Food &amp; Dining</strong>
+                </div>
+              </td>
+              <td class="col-members">
+                <div class="stacked">
+                  <span class="muted small">Total</span>
+                  <strong>₹ 1,000</strong>
+                </div>
+              </td>
+              <td class="col-actions">
+                <div class="action-buttons">
+                  <button class="btn btn--icon btn-view" title="View">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M12 5c5 0 9 5 9 7s-4 7-9 7-9-5-9-7 4-7 9-7zm0 2c-3.86 0-7 3.58-7 5s3.14 5 7 5 7-3.58 7-5-3.14-5-7-5zm0 3a2 2 0 110 4 2 2 0 010-4z"
+                      />
+                    </svg>
+                  </button>
+                  <button class="btn btn--icon" title="Edit">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 000-1.42l-2.34-2.34a1.003 1.003 0 00-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z"
+                      />
+                    </svg>
+                  </button>
+                  <button class="btn btn--icon btn--danger" title="Delete">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M6 7h12v2H6V7zm1 3h10l-1 10H8L7 10zm3-5h4l1 1h4v2H5V6h4l1-1z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 2 -->
+            <tr>
+              <td class="col-name">
+                <div class="row-head">
+                  <span class="expense-title">Scooter Rentals (2 days)</span>
+                  <span class="chip chip--travel">Travel</span>
+                </div>
+                <div class="muted small">
+                  Split by shares • They owe you ₹ 900
+                  <span class="dot">•</span>
+                  01 Sep 2025
+                </div>
+              </td>
+              <td class="col-creator">
+                You <span class="muted small">(Cash)</span>
+              </td>
+              <td class="col-members">
+                <div class="stacked">
+                  <span class="muted small">Category</span>
+                  <strong>Travel</strong>
+                </div>
+              </td>
+              <td class="col-members">
+                <div class="stacked">
+                  <span class="muted small">Total</span>
+                  <strong>₹ 3,600</strong>
+                </div>
+              </td>
+              <td class="col-actions">
+                <div class="action-buttons">
+                  <button class="btn btn--icon btn-view" title="View">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M12 5c5 0 9 5 9 7s-4 7-9 7-9-5-9-7 4-7 9-7zm0 2c-3.86 0-7 3.58-7 5s3.14 5 7 5 7-3.58 7-5-3.14-5-7-5zm0 3a2 2 0 110 4 2 2 0 010-4z"
+                      />
+                    </svg>
+                  </button>
+                  <button class="btn btn--icon" title="Edit">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 000-1.42l-2.34-2.34a1.003 1.003 0 00-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z"
+                      />
+                    </svg>
+                  </button>
+                  <button class="btn btn--icon btn--danger" title="Delete">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M6 7h12v2H6V7zm1 3h10l-1 10H8L7 10zm3-5h4l1 1h4v2H5V6h4l1-1z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 3 -->
+            <tr>
+              <td class="col-name">
+                <div class="row-head">
+                  <span class="expense-title">Beach Shack Breakfast</span>
+                  <span class="chip chip--food">Food &amp; Dining</span>
+                </div>
+                <div class="muted small">
+                  Split equally • Settled
+                  <span class="dot">•</span>
+                  31 Aug 2025
+                </div>
+              </td>
+              <td class="col-creator">
+                Aman <span class="muted small">(Card)</span>
+              </td>
+              <td class="col-members">
+                <div class="stacked">
+                  <span class="muted small">Category</span>
+                  <strong>Food &amp; Dining</strong>
+                </div>
+              </td>
+              <td class="col-members">
+                <div class="stacked">
+                  <span class="muted small">Total</span>
+                  <strong>₹ 820</strong>
+                </div>
+              </td>
+              <td class="col-actions">
+                <div class="action-buttons">
+                  <button class="btn btn--icon btn-view" title="View">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M12 5c5 0 9 5 9 7s-4 7-9 7-9-5-9-7 4-7 9-7zm0 2c-3.86 0-7 3.58-7 5s3.14 5 7 5 7-3.58 7-5-3.14-5-7-5zm0 3a2 2 0 110 4 2 2 0 010-4z"
+                      />
+                    </svg>
+                  </button>
+                  <button class="btn btn--icon" title="Edit">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 000-1.42l-2.34-2.34a1.003 1.003 0 00-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z"
+                      />
+                    </svg>
+                  </button>
+                  <button class="btn btn--icon btn--danger" title="Delete">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M6 7h12v2H6V7zm1 3h10l-1 10H8L7 10zm3-5h4l1 1h4v2H5V6h4l1-1z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ========= EXPENSE DETAIL MODAL ========= -->
+<div
+  class="modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="expModalTitle"
+>
+  <div class="modal-backdrop"></div>
+
+  <div class="modal-card" role="document">
+    <div class="modal-header">
+      <h3 id="expModalTitle">Dinner at Fisherman’s Wharf</h3>
+      <button class="btn btn--icon modal-close" title="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M18.3 5.71L12 12.01l-6.29-6.3-1.41 1.42L10.59 13.4 4.3 19.7l1.41 1.41L12 14.82l6.29 6.29 1.41-1.41-6.29-6.29 6.29-6.29z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <!-- left -->
+      <div class="modal-col">
+        <div class="detail-row">
+          <span class="muted small">Category</span>
+          <div class="chip chip--food">Food &amp; Dining</div>
+        </div>
+
+        <div class="detail-row">
+          <span class="muted small">Paid By</span>
+          <strong>Priya</strong>
+        </div>
+
+        <div class="detail-row">
+          <span class="muted small">Date</span>
+          <strong>02 Sep 2025</strong>
+        </div>
+
+        <div class="detail-row">
+          <span class="muted small">Payment Method</span>
+          <strong>UPI</strong>
+        </div>
+
+        <div class="detail-row">
+          <span class="muted small">Notes</span>
+          <p class="note">
+            Seafood platter + mocktails. Service charge included.
+          </p>
+        </div>
+      </div>
+
+      <!-- right -->
+      <div class="modal-col">
+        <div class="amount-box">
+          <div class="muted small">Total Amount</div>
+          <div class="big-amount">₹ 1,000</div>
+          <div class="muted small">Split equally among 4</div>
+        </div>
+
+        <div class="split-table">
+          <div class="split-row">
+            <span>You</span>
+            <span class="muted small">Owe</span>
+            <strong>₹ 250</strong>
+          </div>
+          <div class="split-row">
+            <span>Priya</span>
+            <span class="muted small">Paid</span>
+            <strong>₹ 1,000</strong>
+          </div>
+          <div class="split-row">
+            <span>Karan</span>
+            <span class="muted small">Owes</span>
+            <strong>₹ 250</strong>
+          </div>
+          <div class="split-row">
+            <span>Aman</span>
+            <span class="muted small">Owes</span>
+            <strong>₹ 250</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn--primary">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M9 16.2l-3.5-3.6L4 14l5 5 11-11-1.5-1.5z" />
+        </svg>
+        Settle Up
+      </button>
+      <button class="btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 3h18v2H3zm0 14h18v2H3zm0-7h18v2H3z" />
+        </svg>
+        View History
+      </button>
+      <div class="spacer"></div>
+      <button class="btn btn--danger">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M6 7h12v2H6V7zm1 3h10l-1 10H8L7 10zm3-5h4l1 1h4v2H5V6h4l1-1z"
+          />
+        </svg>
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

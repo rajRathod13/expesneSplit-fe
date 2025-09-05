@@ -1,0 +1,94 @@
+/* ===== NEW: Scroll wrapper for members (max 5 rows) ===== */
+.member-scroll {
+  max-height: calc(72px * 5); /* ~5 rows visible */
+  overflow-y: auto;
+  padding-right: 0.25rem; /* space for scrollbar */
+}
+.member-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.member-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 6px;
+}
+.member-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-600);
+}
+
+/* ===== Members (kept from your version) ===== */
+.member-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+.member {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fbfcfe;
+}
+.member .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+}
+.member .info .name {
+  font-weight: 700;
+  color: var(--text);
+}
+.member .info .muted {
+  font-size: 0.88rem;
+}
+
+/* ===== Chip (kept) ===== */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--primary-100);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* ===== NEW: actions container (chip + remove button) ===== */
+.member-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Small size */
+.btn--xs {
+  height: 28px;
+  padding: 0 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+/* Danger button */
+.btn--danger {
+  background: #fdecea; /* light red background */
+  color: #d32f2f; /* dark red text */
+  border: 1px solid #f5c2c7; /* soft red border */
+}
+
+.btn--danger:hover {
+  background: #d32f2f; /* dark solid red background */
+  color: #fff; /* white text */
+  border-color: #d32f2f;
+}

@@ -1,0 +1,113 @@
+<!-- backdrop -->
+<div class="modal-backdrop" *ngIf="open" (click)="close.emit()"></div>
+
+<!-- dialog -->
+<div class="modal" *ngIf="open" role="dialog" aria-modal="true">
+  <div class="card modal-card">
+    <div class="modal-header">
+      <h2 class="modal-title">Create Group</h2>
+      <button class="btn btn--link btn--sm" type="button" (click)="onClose()">
+        Close
+      </button>
+    </div>
+
+    <form [formGroup]="form" class="form" (ngSubmit)="submit()">
+      <!-- Group Title -->
+      <div class="field">
+        <label for="title">Group Title</label>
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+          placeholder="e.g., Goa Trip"
+          autocomplete="off"
+        />
+        <div
+          class="error"
+          *ngIf="form.controls.title.touched && form.controls.title.invalid"
+        >
+          Title is required (max 80/150 chars as per validation).
+        </div>
+      </div>
+
+      <!-- Category (image grid radios) -->
+      <div class="field">
+        <label>Category</label>
+
+        <div
+          class="category-grid"
+          role="radiogroup"
+          aria-label="Choose a category"
+        >
+          <ng-container *ngFor="let c of categories; index as i">
+            <!-- hidden radio keeps reactive-form binding -->
+            <input
+              type="radio"
+              class="category-radio"
+              formControlName="categoryId"
+              [id]="'cat-' + i"
+              [value]="c.categoryId"
+            />
+
+            <label
+              class="category-card"
+              [for]="'cat-' + i"
+              [title]="c.title"
+              [attr.aria-label]="c.title"
+            >
+              <img
+                class="category-img"
+                [src]="
+                  base + '/' + c.categoryIcon ||
+                  'assets/category-placeholder.png'
+                "
+                alt=""
+              />
+              <span class="category-name">{{ c.title }}</span>
+            </label>
+          </ng-container>
+        </div>
+
+        <div
+          class="error"
+          *ngIf="
+            form.controls.categoryId.touched && form.controls.categoryId.invalid
+          "
+        >
+          Please choose a category.
+        </div>
+      </div>
+
+      <!-- Group Image -->
+      <div class="field">
+        <label for="file">Group Image (optional)</label>
+        <input
+          id="file"
+          type="file"
+          accept="image/*"
+          class="file--nice"
+          (change)="onFileChange($event)"
+        />
+        <div class="preview" *ngIf="previewUrl">
+          <img [src]="previewUrl" alt="Selected image preview" />
+          <button class="btn btn--sm" type="button" (click)="removeImage()">
+            Remove
+          </button>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn--link" type="button" (click)="onClose()">
+          Cancel
+        </button>
+        <button
+          class="btn btn--primary"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          Create Group
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

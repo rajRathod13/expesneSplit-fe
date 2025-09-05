@@ -1,0 +1,385 @@
+/* ===== Breadcrumbs ===== */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  margin-bottom: 0.75rem;
+}
+.breadcrumbs a {
+  color: var(--primary);
+}
+.breadcrumbs .current {
+  color: var(--text-weak);
+}
+
+/* ===== Hero/Header ===== */
+.group-hero {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.25rem;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Shared card base (aligned with global theme) */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: var(--shadow-1);
+}
+
+/* ===== Grid Layout ===== */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 1.25rem;
+}
+
+/* Data table (Recent Expenses) */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th,
+.data-table td {
+  padding: 0.75rem 0.55rem;
+  text-align: left;
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--border);
+}
+.data-table th {
+  font-weight: 700;
+  color: var(--text);
+  background: var(--primary-100);
+}
+.data-table tbody tr:hover {
+  background: var(--muted);
+}
+
+/* Group Info grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem 1rem;
+  margin-top: 0.5rem;
+}
+.info-item {
+  background: #fbfcfe;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.75rem 0.8rem;
+}
+.info-item .label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-weak);
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+.info-item .value {
+  color: var(--text);
+  font-weight: 700;
+}
+.info-item.span-2 {
+  grid-column: span 2;
+}
+
+/* ===== (kept exactly as you had) Sections ===== */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+
+/* Right column stack */
+.stack {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* Minor accent buttons inside headers */
+.btn.btn--sm {
+  height: 34px;
+  padding: 0 0.8rem;
+  font-weight: 700;
+}
+.section-header .btn.btn--sm {
+  border: 1px solid var(--primary);
+  background: var(--primary-100);
+  color: var(--primary);
+}
+.section-header .btn.btn--sm:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 820px) {
+  .group-hero {
+    grid-template-columns: 1fr;
+  }
+  .group-image {
+    max-height: 220px;
+  }
+  .title-row {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  .info-item.span-2 {
+    grid-column: span 1;
+  }
+}
+
+/* =========================
+   Invite CSS (updated)
+   ========================= */
+
+/* Host should not affect parent layout if used as a standalone component */
+:host {
+  display: contents;
+}
+
+/* Overlay */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 20, 32, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 50;
+}
+
+/* Dialog container */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 51;
+}
+
+/* Card */
+.modal-card {
+  width: 100%;
+  max-width: 560px;
+  padding: 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-1);
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.6rem;
+}
+.modal-title {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--text-strong);
+}
+
+/* Scrollable list (≈ 7 rows visible) */
+.user-scroll {
+  --row-h: 64px;
+  max-height: calc(var(--row-h) * 7);
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+.user-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.user-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 6px;
+}
+.user-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-600);
+}
+
+/* List + items */
+.user-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem;
+  display: grid;
+  gap: 0.5rem;
+}
+.user-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fbfcfe;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    transform 0.06s ease;
+}
+.user-item:hover {
+  background: #fff;
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+/* Row layout (no checkbox) */
+.user-row {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.7rem;
+}
+
+/* Avatar and info */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  background: #fff;
+}
+.user-info .name {
+  font-weight: 700;
+  color: var(--text);
+}
+.user-info .muted {
+  font-size: 0.9rem;
+  color: var(--text-weak);
+}
+
+/* Actions */
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Buttons */
+.btn {
+  cursor: pointer;
+}
+.btn--sm {
+  height: 34px;
+  padding: 0 0.8rem;
+  font-weight: 700;
+  border-radius: 8px;
+}
+.btn--primary {
+  background: var(--primary);
+  color: #fff;
+  border: 1px solid var(--primary);
+}
+.btn--primary:hover {
+  filter: brightness(0.95);
+}
+.btn--primary[disabled] {
+  background: var(--primary-100);
+  color: var(--primary-600);
+  border-color: var(--primary);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 1;
+}
+.btn.btn--link.btn--sm {
+  padding: 0;
+  height: auto;
+}
+
+/* Status badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 28px;
+  padding: 0 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.badge--pending {
+  background: #fff7e6;
+  color: #a15f00;
+  border-color: #ffd699;
+}
+.badge--sent {
+  background: #e6fff1;
+  color: #0a7a3d;
+  border-color: #a6f3cc;
+}
+
+/* Spinner (minimal) */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Empty state */
+.empty {
+  padding: 1rem;
+  text-align: center;
+  color: var(--text-weak);
+  background: #fbfcfe;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  margin: 0.25rem;
+}
+
+/* Footer actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+}
+
+/* Expense List */
+:host .recent-expenses .group-table tbody tr.row-link {
+  cursor: pointer;
+}
+
+:host .recent-expenses .group-table tbody tr.row-link:hover {
+  background: var(--muted);
+}
+
+/* a11y: visible focus when navigating with keyboard */
+:host .recent-expenses .group-table tbody tr.row-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px; /* stays inside row height */
+}

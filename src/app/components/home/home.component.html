@@ -1,0 +1,133 @@
+<!-- Top header with Create Group button -->
+<div class="home-header">
+  <h1 class="home-title">Groups</h1>
+  <div class="spacer"></div>
+  <button class="btn btn--primary" type="button" (click)="openAdd = true">
+    + Create Group
+  </button>
+</div>
+
+<!-- Tabs container -->
+<div class="home-tabs">
+  <!-- radios must be siblings of .tab-body so CSS selectors work -->
+  <input type="radio" id="tab-my" name="grouptab" checked />
+  <input type="radio" id="tab-joined" name="grouptab" />
+
+  <!-- pill tabs -->
+  <div class="tabs">
+    <label for="tab-my"
+      >My Groups
+      <span class="badge">{{ createdGroups.length || 0 }}</span></label
+    >
+    <label for="tab-joined"
+      >Groups You’re In
+      <span class="badge">{{ groupsAsMember.length || 0 }}</span></label
+    >
+  </div>
+
+  <!-- content card -->
+  <div class="tab-body card">
+    <!-- MY GROUPS -->
+    <section class="panel panel-my">
+      <div class="table-wrapper">
+        <table class="group-table home-wide">
+          <thead>
+            <tr>
+              <th class="col-name">Group Name</th>
+              <th class="col-creator">Members</th>
+              <th class="col-members nowrap">Created On</th>
+              <th class="col-actions nowrap">Actions</th>
+            </tr>
+          </thead>
+        </table>
+        <div class="tbody-scroll">
+          <table class="group-table home-wide">
+            <tbody *ngIf="createdGroups.length > 0; else myEmpty">
+              <tr *ngFor="let groupDetail of createdGroups">
+                <td class="col-name">{{ groupDetail.title }}</td>
+                <td class="col-creator">{{ groupDetail.userGroups.length }}</td>
+                <td class="col-members nowrap">
+                  {{ groupDetail.createdOn | date : "MM/dd/yyyy" }}
+                </td>
+                <td class="col-actions">
+                  <button
+                    class="btn btn--icon btn-view"
+                    type="button"
+                    title="View"
+                    aria-label="View group"
+                    (click)="goToGroupDetail(groupDetail.groupId, false)"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M12 5c-5 0-9 4.5-10 7 1 2.5 5 7 10 7s9-4.5 10-7c-1-2.5-5-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"
+                      />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #myEmpty>
+            <div class="empty-state">You haven’t created any groups yet.</div>
+          </ng-template>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUPS YOU’RE IN -->
+    <section class="panel panel-joined">
+      <div class="table-wrapper">
+        <table class="group-table home-wide">
+          <thead>
+            <tr>
+              <th class="col-name">Group Name</th>
+              <th class="col-creator">Creator</th>
+              <th class="col-members">Members</th>
+              <th class="col-actions nowrap">Actions</th>
+            </tr>
+          </thead>
+        </table>
+        <div class="tbody-scroll">
+          <table class="group-table home-wide">
+            <tbody *ngIf="groupsAsMember.length > 0; else joinedEmpty">
+              <tr *ngFor="let groupDetail of groupsAsMember">
+                <td class="col-name">{{ groupDetail.title }}</td>
+                <td class="col-creator">{{ groupDetail.user.fullName }}</td>
+                <td class="col-members">
+                  {{ groupDetail.userGroups.length || 0 }}
+                </td>
+                <td class="col-actions">
+                  <button
+                    class="btn btn--icon btn-view"
+                    type="button"
+                    title="View"
+                    aria-label="View group"
+                    (click)="goToGroupDetail(groupDetail.groupId, true)"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M12 5c-5 0-9 4.5-10 7 1 2.5 5 7 10 7s9-4.5 10-7c-1-2.5-5-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"
+                      />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #joinedEmpty>
+            <div class="empty-state">You aren’t a member of any group yet.</div>
+          </ng-template>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- existing modal -->
+<app-add-group
+  [categories]="categories"
+  [open]="openAdd"
+  (close)="openAdd = false"
+  (submitForm)="onCreateGroup($event)"
+>
+</app-add-group>

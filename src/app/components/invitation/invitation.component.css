@@ -1,0 +1,206 @@
+/* ===== Page container (stacked sections) ===== */
+.inv-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* Section cards spacing */
+.inv-section .card {
+  padding: 1rem;
+}
+
+/* ===== Section A: tabs + content ===== */
+.inv-section--tabs {
+  display: block; /* stack friendly */
+  position: relative;
+}
+
+/* hide radios but keep them for :checked ~ selectors */
+.inv-section--tabs > input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* left side tabs + right content */
+.left-pane {
+  display: grid;
+  grid-template-columns: 160px 1fr; /* narrow tab strip */
+  gap: 1rem;
+  align-items: start;
+  min-width: 0;
+}
+
+/* vertical tabs */
+.tabs-vert {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+}
+.tabs-vert label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 0.7rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-weight: 800;
+  color: var(--text);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+}
+.tabs-vert label span:first-child {
+  line-height: 1.05;
+}
+.tabs-vert .badge {
+  display: inline-flex;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 8px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--primary-100);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+
+/* active tab highlight */
+#tab-sent:checked ~ .left-pane .tabs label[for="tab-sent"],
+#tab-accepted:checked ~ .left-pane .tabs label[for="tab-accepted"],
+#tab-cancelled:checked ~ .left-pane .tabs label[for="tab-cancelled"],
+#tab-rejected:checked ~ .left-pane .tabs label[for="tab-rejected"] {
+  background: var(--primary-100);
+  border-color: var(--primary);
+  box-shadow: 0 6px 20px rgba(63, 81, 181, 0.18);
+  color: var(--text-strong);
+}
+
+/* tab content card */
+.inv-section--tabs .tab-body.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: var(--shadow-1);
+}
+
+/* show only selected panel */
+.panel {
+  display: none;
+}
+#tab-sent:checked ~ .left-pane .tab-body .panel-sent {
+  display: block;
+}
+#tab-accepted:checked ~ .left-pane .tab-body .panel-accepted {
+  display: block;
+}
+#tab-cancelled:checked ~ .left-pane .tab-body .panel-cancelled {
+  display: block;
+}
+#tab-rejected:checked ~ .left-pane .tab-body .panel-rejected {
+  display: block;
+}
+
+/* ===== Tables alignment (shared) ===== */
+.inv-page .group-table {
+  table-layout: fixed;
+  width: 100%;
+}
+.inv-page .group-table thead th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.inv-page .tbody-scroll {
+  max-height: 52vh;
+  overflow: auto;
+  border-top: 1px solid var(--border);
+}
+
+/* Per-panel column maps (headers & rows read the same vars) */
+.inv-section--tabs .table-wrapper {
+  --col1: 48%;
+  --col2: 24%;
+  --col3: 16%;
+  --col4: 12%;
+}
+.inv-section--tabs .inv-sent {
+  --col1: 48%;
+  --col2: 24%;
+  --col3: 16%;
+  --col4: 12%;
+}
+.inv-section--tabs .inv-accepted {
+  --col1: 50%;
+  --col2: 32%;
+  --col3: 18%;
+}
+
+.inv-section--tabs .inv-cancelled {
+  --col1: 40%;
+  --col2: 37%;
+  --col3: 23%;
+}
+/* Rejected (static: title + date only) */
+.inv-section--tabs .inv-rejected {
+  --col1: 40%;
+  --col2: 35%;
+  --col3: 25%;
+}
+
+/* Apply widths */
+.inv-page .group-table .col-title {
+  width: var(--col1);
+}
+.inv-page .group-table .col-member {
+  width: var(--col2);
+  text-align: center;
+}
+.inv-page .group-table .col-person {
+  width: var(--col3);
+}
+.inv-page .group-table .col-date {
+  width: var(--col4, var(--col3));
+}
+.inv-page .group-table .col-actions {
+  width: var(--col5, var(--col4));
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ===== Section B: New Invitations ===== */
+.inv-section--new .section-title {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+
+/* New Invitations column widths */
+.inv-section--new .inv-pending {
+  --col1: 42%;
+  --col2: 14%;
+  --col3: 22%;
+  --col4: 14%;
+  --col5: 8%;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 840px) {
+  .left-pane {
+    grid-template-columns: 1fr;
+  }
+  .tabs-vert {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

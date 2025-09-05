@@ -1,0 +1,244 @@
+<div class="image-wrap">
+  <img class="group-image" [src]="groupDetail.groupImage" alt="Group image" />
+</div>
+
+<div class="hero-content">
+  <div class="title-row">
+    <h1 class="group-title">{{ groupDetail.title }}</h1>
+    <button class="btn btn--primary" type="button" (click)="openModel()">
+      + Add Expense
+    </button>
+  </div>
+
+  <div class="meta">
+    <div class="meta-item">
+      <span class="label">Creator</span>
+      <span class="value">{{ groupDetail.user.fullName }}</span>
+    </div>
+    <div class="meta-item">
+      <span class="label">Members</span>
+      <span class="value">{{ groupDetail.userGroups.length }}</span>
+    </div>
+    <div class="meta-item">
+      <span class="label">Created On</span>
+      <span class="value">{{ groupDetail.createdOn | date : "MMMM d y" }}</span>
+    </div>
+  </div>
+
+  <p class="group-desc">
+    Trip expenses and hotel split for the weekend. Add notes or a short
+    description here.
+  </p>
+</div>
+
+<!-- Add Expense Model-->
+<!-- ========= Add Expense modal ========= -->
+
+<!-- Backdrop -->
+<div
+  class="modal-backdrop"
+  *ngIf="openAddExpense"
+  (click)="openAddExpense = false"
+></div>
+
+<!-- Dialog -->
+<div
+  class="modal"
+  *ngIf="openAddExpense"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="add-expense-title"
+>
+  <div class="card modal-card exp-modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="add-expense-title">Add Expense</h2>
+      <button
+        class="btn btn--link btn--sm"
+        type="button"
+        (click)="openAddExpense = false"
+      >
+        Close
+      </button>
+    </div>
+
+    <!-- BIND THE FORM -->
+    <form class="exp-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="exp-grid">
+        <div class="field">
+          <label class="label" for="exp-desc">Description</label>
+          <input
+            id="exp-desc"
+            type="text"
+            class="input"
+            placeholder="e.g., Dinner at Spice Hub"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="field">
+          <label class="label" for="exp-amount">Total Amount</label>
+          <div class="input-affix">
+            <span class="affix-l">₹</span>
+            <input
+              id="exp-amount"
+              type="number"
+              inputmode="decimal"
+              step="0.01"
+              min="0"
+              class="input"
+              placeholder="0.00"
+              formControlName="totalAmount"
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="exp-paidby">Paid by</label>
+          <select id="exp-paidby" class="input" formControlName="paidByUserId">
+            <option *ngFor="let m of groupMembers" [value]="m.id">
+              {{ m.fullName }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Radios MUST stay before .split-pane for CSS selectors -->
+      <input
+        type="radio"
+        id="split-equal"
+        name="splitType"
+        value="Equals"
+        formControlName="splitType"
+      />
+      <input
+        type="radio"
+        id="split-percent"
+        name="splitType"
+        value="Percentage"
+        formControlName="splitType"
+      />
+      <input
+        type="radio"
+        id="split-custom"
+        name="splitType"
+        value="Custom"
+        formControlName="splitType"
+      />
+
+      <div class="split-pane">
+        <nav class="tabs tabs-vert split-tabs">
+          <label for="split-equal"><span>Equal</span></label>
+          <label for="split-percent"><span>Percentage</span></label>
+          <label for="split-custom"><span>Custom</span></label>
+        </nav>
+
+        <div class="split-body card" formArrayName="members">
+          <!-- EQUAL -->
+          <section class="panel panel-equal">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th class="col-title">Member</th>
+                  <th class="col-actions nowrap">Include</th>
+                </tr>
+              </thead>
+            </table>
+            <div class="tbody-scroll">
+              <table class="data-table">
+                <tbody>
+                  <tr
+                    *ngFor="let g of members.controls; let i = index"
+                    [formGroupName]="i"
+                  >
+                    <td class="col-title">{{ groupMembers[i].fullName }}</td>
+                    <td class="col-actions">
+                      <input type="checkbox" formControlName="include" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- PERCENTAGE -->
+          <section class="panel panel-percent">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th class="col-title">Member</th>
+                  <th class="col-number nowrap">Percentage</th>
+                </tr>
+              </thead>
+            </table>
+            <div class="tbody-scroll">
+              <table class="data-table">
+                <tbody>
+                  <tr
+                    *ngFor="let g of members.controls; let i = index"
+                    [formGroupName]="i"
+                  >
+                    <td class="col-title">{{ groupMembers[i].fullName }}</td>
+                    <td class="col-number">
+                      <div class="input-affix">
+                        <input
+                          type="number"
+                          min="0"
+                          max="100"
+                          step="0.01"
+                          class="input right"
+                          placeholder="0"
+                          formControlName="percentage"
+                        />
+                        <span class="affix-r">%</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- CUSTOM -->
+          <section class="panel panel-custom">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th class="col-title">Member</th>
+                  <th class="col-number nowrap">Share Amount</th>
+                </tr>
+              </thead>
+            </table>
+            <div class="tbody-scroll">
+              <table class="data-table">
+                <tbody>
+                  <tr
+                    *ngFor="let g of members.controls; let i = index"
+                    [formGroupName]="i"
+                  >
+                    <td class="col-title">{{ groupMembers[i].fullName }}</td>
+                    <td class="col-number">
+                      <div class="input-affix">
+                        <span class="affix-l">₹</span>
+                        <input
+                          type="number"
+                          min="0"
+                          step="0.01"
+                          class="input right"
+                          placeholder="0.00"
+                          formControlName="shareAmount"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn--primary" type="submit">Add Expense</button>
+      </div>
+    </form>
+  </div>
+</div>
