@@ -19,11 +19,7 @@
           type="button"
           (click)="toggleMenu()"
         >
-          <img
-            class="avatar"
-            [src]="base + '/' + user?.profilePicture"
-            alt=""
-          />
+          <img class="avatar" [src]="user?.profilePicture" alt="" />
           <span class="username">{{ user?.fullName || "User" }}</span>
           <svg
             class="chev"

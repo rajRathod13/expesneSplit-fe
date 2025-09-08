@@ -101,15 +101,33 @@ export class AuthService {
     });
   }
 
-  private setUser(user: AppUser | null) {
-    this.userSubject.next(user);
-    if (user) localStorage.setItem('app_user', JSON.stringify(user));
-    else localStorage.removeItem('app_user');
-  }
-
   loadUser(): AppUser | null {
     const raw = localStorage.getItem('app_user');
     return raw ? (JSON.parse(raw) as AppUser) : null;
+  }
+
+  /** Ensure profilePicture is absolute URL and optionally cache-bust */
+  private normalizeUser(u: AppUser | null, cacheBust = false): AppUser | null {
+    if (!u) return null;
+    const needsPrefix =
+      !!u.profilePicture && !/^https?:\/\//i.test(u.profilePicture);
+    const pic = needsPrefix
+      ? `${this.base}/${u.profilePicture}`
+      : u.profilePicture;
+
+    return {
+      ...u,
+      profilePicture: cacheBust && pic ? `${pic}?t=${Date.now()}` : pic,
+    };
+  }
+
+  /** Make this public so components can refresh header after profile update */
+  setUser(user: AppUser | null, { cacheBust = false } = {}) {
+    const normalized = this.normalizeUser(user, cacheBust);
+    this.userSubject.next(normalized);
+    if (normalized)
+      localStorage.setItem('app_user', JSON.stringify(normalized));
+    else localStorage.removeItem('app_user');
   }
 
   private clearUser() {

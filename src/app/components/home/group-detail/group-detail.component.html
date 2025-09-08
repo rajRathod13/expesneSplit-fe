@@ -49,7 +49,7 @@
               (keydown.space)="navigateTo(expense); $event.preventDefault()"
             >
               <td>{{ expense.description }}</td>
-              <td>{{ "John Doe" }}</td>
+              <td>{{ expense.user.fullName || "No User" }}</td>
               <td>₹ {{ expense.totalAmount }}</td>
               <td>{{ expense.createdOn | date : "MM/dd/yyyy" }}</td>
             </tr>
