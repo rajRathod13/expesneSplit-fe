@@ -1,3 +1,5 @@
+import { AppUser } from 'app/components/auth/auth.models';
+
 export type SplitType = 'Equals' | 'Percentage' | 'Custom';
 
 export interface SplitDetailDTO {
@@ -22,6 +24,8 @@ export interface Expense {
   description: string;
   totalAmount: number;
   splitType: SplitType;
+  paidById: string;
+  user: AppUser;
   createdOn: string | null | Date;
   splitDetails: SplitDetailDTO[];
 }

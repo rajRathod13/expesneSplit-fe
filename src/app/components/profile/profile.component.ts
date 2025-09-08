@@ -1,7 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ProfileService } from './profile.service';
-import { AppUser } from '../auth/auth.models';
-import { async, Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { environment } from '@env/environment';
 import { FormsModule } from '@angular/forms';
@@ -15,10 +13,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
-  private base = environment.apiBaseUrl;
+  base = environment.apiBaseUrl;
   selectedProfilePicture: File | null = null;
   profileService = inject(ProfileService);
-  //authService = inject(AuthService);
+  authService = inject(AuthService);
   user = {
     id: '',
     email: '',
@@ -46,10 +44,6 @@ export class ProfileComponent implements OnInit {
         this.user = res.data;
         this.user.profilePicture = `${this.base}/${this.user.profilePicture}`;
         this.profileData = { ...res.data };
-        // (this.profileData.email = res.data.email),
-        //   (this.profileData.phoneNumber = res.data.phoneNumber),
-        //   (this.profileData.fullName = res.data.fullName),
-        //   (this.profileData.profilePicture = `${this.base}/${res.data.profilePicture}`);
       }
     });
   }
@@ -64,6 +58,8 @@ export class ProfileComponent implements OnInit {
     this.profileService.updateProfile(payload).subscribe((res: any) => {
       if (res.isSuccess) {
         this.user = res.data;
+        this.user.profilePicture = `${this.base}/${this.user.profilePicture}`;
+        this.authService.setUser(res.data, { cacheBust: true });
         this.closeModal();
       }
     });
