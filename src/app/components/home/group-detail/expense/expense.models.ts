@@ -14,7 +14,7 @@ export interface UpsertExpenseRequest {
   description: string;
   totalAmount: number;
   splitType: SplitType;
-  paidByUserId: string;
+  paidById: string;
   splitDetails: SplitDetailDTO[];
 }
 

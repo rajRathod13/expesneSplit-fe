@@ -15,8 +15,10 @@ export class ExpenseService {
     return this.http.post(`${this.baseUrl}/api/expense/UpsertExpense`, body);
   }
 
-  getExpensesByGroupId(groupId?: string) {
-    const params = new HttpParams().set('groupId', groupId ?? '');
+  getExpensesByGroupId(groupId?: string, latestOnly?: boolean) {
+    const params = new HttpParams()
+      .set('groupId', groupId ?? '')
+      .set('latestOnly', latestOnly ?? true);
 
     return this.http.get(`${this.baseUrl}/api/expense/getexpensesbygroupid`, {
       params,
